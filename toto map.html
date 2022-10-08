@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Todo List</title>
+    <link rel="stylesheet" href="./todo map.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="form">
+        <input type="text" id="inp" onfocus="this.value=''" />
+        <button id="btn" onclick="add()">Add</button>
+      </div>
+      <ol id="todolist"></ol>
+    </div>
+  </body>
+
+  <script>
+    var list = [];
+    var inp = document.getElementById("inp");
+    var todo_li = document.getElementById("todolist");
+
+    function add() {
+      if (inp.value == "") {
+        alert("Please Add Something");
+      } else if (list.includes(inp.value)) {
+        alert("This task is Exist.");
+      } else {
+        list.push(inp.value);
+        showList();
+      }
+    }
+
+    function showList() {
+      todo_li.innerHTML = "";
+      list.forEach(function (t, i) {
+        todo_li.innerHTML +=
+          "<li>" + t + "<a onclick ='editItem(" + i + ")'>edit</a>" + 
+          "<a onclick ='deleteItem(" + i + ")'>&times;</a></li>";
+      });
+    }
+
+    function deleteItem(i) {
+      list.splice(i, 1);
+      showList();
+    }
+
+    function editItem(i) {
+      var newValue = prompt("Please Insert Your New Value");
+      if (newValue == "") {
+        alert("Please Add Something");
+      } else if (list.includes(newValue)) {
+        alert("This task is Exist.");
+      } else {
+        list.splice(i, 1, newValue);
+        showList();
+      }
+    }
+  </script>
+</html>
